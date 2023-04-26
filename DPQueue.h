@@ -113,7 +113,7 @@ namespace CS3358_SP2023_A7
       size_type capacity;
       size_type used;
       // HELPER FUNCTIONS
-      void resize(size_type new_capacity);
+      void resize(size_type new_capacity);//
       bool is_leaf(size_type i) const;
       size_type parent_index(size_type i) const;
       size_type parent_priority(size_type i) const;

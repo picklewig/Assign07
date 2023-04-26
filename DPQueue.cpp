@@ -86,19 +86,22 @@ namespace CS3358_SP2023_A7
 
    // CONSTRUCTORS AND DESTRUCTOR
 
-   p_queue::p_queue(size_type initial_capacity)
-   {
-      cerr << "p_queue() not implemented yet" << endl;
+   p_queue::p_queue(size_type initial_capacity = DEFAULT_CAPACITY): used(0), capacity(initial_capacity){
+       if(initial_capacity <= 0){
+           capacity = DEFAULT_CAPACITY;
+       }
+       heap = new ItemType[capacity];
    }
 
-   p_queue::p_queue(const p_queue& src)
-   {
-      cerr << "p_queue(const p_queue&) not implemented yet" << endl;
+   p_queue::p_queue(const p_queue& src): used(src.used), capacity(src.capacity){
+      heap = new ItemType[capacity];
+      for(size_type index = 0; index < used; index++){
+          heap[index] = src.heap[index];
+      }
    }
 
-   p_queue::~p_queue()
-   {
-      cerr << "~p_queue() not implemented yet" << endl;
+   p_queue::~p_queue(){
+      delete[] heap;
    }
 
    // MODIFICATION MEMBER FUNCTIONS
@@ -126,10 +129,8 @@ namespace CS3358_SP2023_A7
       return 0; // dummy return value
    }
 
-   bool p_queue::empty() const
-   {
-      cerr << "empty() not implemented yet" << endl;
-      return false; // dummy return value
+   bool p_queue::empty() const{
+      return used == 0;
    }
 
    p_queue::value_type p_queue::front() const
