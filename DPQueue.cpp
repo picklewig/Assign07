@@ -139,7 +139,6 @@ namespace CS3358_SP2023_A7
    }
 
    // PRIVATE HELPER FUNCTIONS
-   void p_queue::resize(size_type new_capacity)
    // Pre:  (none)
    // Post: The size of the dynamic array pointed to by heap (thus
    //       the capacity of the p_queue) has been resized up or down
@@ -147,8 +146,20 @@ namespace CS3358_SP2023_A7
    //       loss of existing data).
    //       NOTE: All existing items in the p_queue are preserved and
    //             used remains unchanged.
-   {
-      cerr << "resize(size_type) not implemented yet" << endl;
+   void p_queue::resize(size_type new_capacity){
+       if(new_capacity < used){
+           new_capacity = used;
+       }
+       if(new_capacity < 1){
+           new_capacity = 1;
+       }
+       ItemType* newSequence = new ItemType[new_capacity];
+       for(size_type index = 0; index < used; index++){
+           newSequence[index] = heap[index];
+       }
+       delete[] heap;
+       heap = newSequence;
+       capacity = new_capacity;
    }
 
    bool p_queue::is_leaf(size_type i) const
