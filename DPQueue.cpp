@@ -86,14 +86,14 @@ namespace CS3358_SP2023_A7
 
    // CONSTRUCTORS AND DESTRUCTOR
 
-   p_queue::p_queue(size_type initial_capacity = DEFAULT_CAPACITY): used(0), capacity(initial_capacity){
+   p_queue::p_queue(size_type initial_capacity): capacity(initial_capacity), used(0){
        if(initial_capacity <= 0){
            capacity = DEFAULT_CAPACITY;
        }
        heap = new ItemType[capacity];
    }
 
-   p_queue::p_queue(const p_queue& src): used(src.used), capacity(src.capacity){
+   p_queue::p_queue(const p_queue& src): capacity(src.capacity), used(src.used){
       heap = new ItemType[capacity];
       for(size_type index = 0; index < used; index++){
           heap[index] = src.heap[index];
@@ -105,14 +105,21 @@ namespace CS3358_SP2023_A7
    }
 
    // MODIFICATION MEMBER FUNCTIONS
-   p_queue& p_queue::operator=(const p_queue& rhs)
-   {
-      cerr << "operator=(const p_queue&) not implemented yet" << endl;
+   p_queue& p_queue::operator=(const p_queue& rhs){
+      if(this != &rhs){
+          ItemType* newHeap = new ItemType[rhs.capacity];
+          for(size_type index = 0; index < rhs.used; index++){
+              newHeap[index] = rhs.heap[index];
+          }
+          delete[] heap;
+          heap = newHeap;
+          capacity = rhs.capacity;
+          used = rhs.used;
+      }
       return *this;
    }
 
-   void p_queue::push(const value_type& entry, size_type priority)
-   {
+   void p_queue::push(const value_type& entry, size_type priority){
       cerr << "push(const value_type&, size_type) not implemented yet" << endl;
    }
 
@@ -154,12 +161,12 @@ namespace CS3358_SP2023_A7
        if(new_capacity < 1){
            new_capacity = 1;
        }
-       ItemType* newSequence = new ItemType[new_capacity];
+       ItemType* newHeap = new ItemType[new_capacity];
        for(size_type index = 0; index < used; index++){
-           newSequence[index] = heap[index];
+           newHeap[index] = heap[index];
        }
        delete[] heap;
-       heap = newSequence;
+       heap = newHeap;
        capacity = new_capacity;
    }
 

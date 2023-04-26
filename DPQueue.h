@@ -86,9 +86,9 @@ namespace CS3358_SP2023_A7
       typedef size_t size_type;
       static const size_type DEFAULT_CAPACITY = 1;
       // CONSTRUCTORS AND DESTRUCTOR
-      p_queue(size_type initial_capacity = DEFAULT_CAPACITY);
-      p_queue(const p_queue& src);
-      ~p_queue();
+      p_queue(size_type initial_capacity = DEFAULT_CAPACITY);//
+      p_queue(const p_queue& src);//
+      ~p_queue();//
       // MODIFICATION MEMBER FUNCTIONS
       p_queue& operator=(const p_queue& rhs);
       void push(const value_type& entry, size_type priority);
