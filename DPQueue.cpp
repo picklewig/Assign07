@@ -124,16 +124,18 @@ namespace CS3358_SP2023_A7
    //     Post: A new copy of item with the specified data and priority
    //           has been added to the p_queue.
    void p_queue::push(const value_type& entry, size_type priority){
-      if(used >= capacity){
-          resize(size_type(1.5*capacity) + 1);
-      }
-      heap[used] = ItemType();
-      heap[used].data = entry;
-      heap[used].priority = priority;
-      while(priority > parent_priority(used)){
-          swap_with_parent(used);
-      }
-      used++;
+       if(used >= capacity){
+           resize(size_type(1.5*capacity) + 1);
+       }
+       heap[used] = ItemType();
+       heap[used].data = entry;
+       heap[used].priority = priority;
+       size_type cursor = used;
+       used++;
+       while((cursor > 0) and (priority > parent_priority(cursor))){ //used gets mutated
+           swap_with_parent(cursor);
+           cursor = parent_index(cursor);
+       }
    }
 
    //   void pop()
