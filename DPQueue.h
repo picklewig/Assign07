@@ -114,11 +114,11 @@ namespace CS3358_SP2023_A7
       size_type used;
       // HELPER FUNCTIONS
       void resize(size_type new_capacity);//
-      bool is_leaf(size_type i) const;
-      size_type parent_index(size_type i) const;
-      size_type parent_priority(size_type i) const;
-      size_type big_child_index(size_type i) const;
-      size_type big_child_priority(size_type i) const;
+      bool is_leaf(size_type i) const;//
+      size_type parent_index(size_type i) const;//
+      size_type parent_priority(size_type i) const;//
+      size_type big_child_index(size_type i) const;//
+      size_type big_child_priority(size_type i) const;//
       void swap_with_parent(size_type i);
    };
 }

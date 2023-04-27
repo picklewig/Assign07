@@ -170,57 +170,69 @@ namespace CS3358_SP2023_A7
        capacity = new_capacity;
    }
 
-   bool p_queue::is_leaf(size_type i) const
    // Pre:  (i < used)
    // Post: If the item at heap[i] has no children, true has been
    //       returned, otherwise false has been returned.
-   {
-      cerr << "is_leaf(size_type) not implemented yet" << endl;
-      return false; // dummy return value
+   bool p_queue::is_leaf(size_type i) const{
+      assert(i < used);
+      bool leaf = false;
+      if(((2*i) + 1) < used){
+          leaf = true;
+      }
+      return leaf;
    }
 
-   p_queue::size_type
-   p_queue::parent_index(size_type i) const
    // Pre:  (i > 0) && (i < used)
    // Post: The index of "the parent of the item at heap[i]" has
    //       been returned.
-   {
-      cerr << "parent_index(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+   p_queue::size_type
+   p_queue::parent_index(size_type i) const{
+      return (i - 1)/2;
    }
 
-   p_queue::size_type
-   p_queue::parent_priority(size_type i) const
    // Pre:  (i > 0) && (i < used)
    // Post: The priority of "the parent of the item at heap[i]" has
    //       been returned.
-   {
-      cerr << "parent_priority(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+   p_queue::size_type
+   p_queue::parent_priority(size_type i) const{
+       assert((i > 0) and (i < used));
+       return heap[(i - 1)/2].priority;
    }
 
-   p_queue::size_type
-   p_queue::big_child_index(size_type i) const
    // Pre:  is_leaf(i) returns false
    // Post: The index of "the bigger child of the item at heap[i]"
    //       has been returned.
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
-   {
-      cerr << "big_child_index(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+   p_queue::size_type
+   p_queue::big_child_index(size_type i) const{
+      assert(!is_leaf(i));
+      size_type bigChild;
+      if(heap[(2*i)+1].priority >= heap[(2*i)+2].priority){
+          bigChild = (2*i)+1;
+      }
+      else{
+          bigChild = (2*i)+2;
+      }
+      return bigChild;
    }
 
-   p_queue::size_type
-   p_queue::big_child_priority(size_type i) const
    // Pre:  is_leaf(i) returns false
    // Post: The priority of "the bigger child of the item at heap[i]"
    //       has been returned.
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
-   {
-      cerr << "big_child_priority(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+   p_queue::size_type
+   p_queue::big_child_priority(size_type i) const{
+       assert(!is_leaf(i));
+       size_type bigChild;
+       if(heap[(2*i)+1].priority >= heap[(2*i)+2].priority){
+           bigChild = heap[(2*i)+1].priority;
+       }
+       else{
+           bigChild = heap[(2*i)+2].priority;
+       }
+       return bigChild;
    }
 
    void p_queue::swap_with_parent(size_type i)
