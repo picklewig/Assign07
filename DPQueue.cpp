@@ -235,11 +235,13 @@ namespace CS3358_SP2023_A7
        return bigChild;
    }
 
-   void p_queue::swap_with_parent(size_type i)
    // Pre:  (i > 0) && (i < used)
    // Post: The item at heap[i] has been swapped with its parent.
-   {
-      cerr << "swap_with_parent(size_type) not implemented yet" << endl;
+   void p_queue::swap_with_parent(size_type i){
+      assert((i > 0) and (i < used));
+      ItemType parent = heap[parent_index(i)];
+      heap[parent_index(i)] = heap[i];
+      heap[i] = parent;
    }
 }
 
