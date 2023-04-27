@@ -119,31 +119,54 @@ namespace CS3358_SP2023_A7
       return *this;
    }
 
+   //   void push(const value_type& entry, size_type priority)
+   //     Pre:  (none)
+   //     Post: A new copy of item with the specified data and priority
+   //           has been added to the p_queue.
    void p_queue::push(const value_type& entry, size_type priority){
-      cerr << "push(const value_type&, size_type) not implemented yet" << endl;
+      if(used >= capacity){
+          resize(size_type(1.5*capacity) + 1);
+      }
+      heap[used] = ItemType();
+      heap[used].data = entry;
+      heap[used].priority = priority;
+      while(priority > parent_priority(used)){
+          swap_with_parent(used);
+      }
+      used++;
    }
 
-   void p_queue::pop()
-   {
-      cerr << "pop() not implemented yet" << endl;
+   //   void pop()
+   //     Pre:  size() > 0.
+   //     Post: The highest priority item has been removed from the
+   //           p_queue. (If several items have the equal priority,
+   //           then the implementation may decide which one to remove.)
+   void p_queue::pop(){
+      assert(size() > 0);
+      size_type i = 0;
+      while(!is_leaf(i)){
+          swap_with_parent(big_child_index(i));
+          i = big_child_index(i);
+      }
+      for(size_type index = i+1; index < used; index++){
+          heap[index-1] = heap[index];
+      }
+      used--;
    }
 
    // CONSTANT MEMBER FUNCTIONS
 
-   p_queue::size_type p_queue::size() const
-   {
-      cerr << "size() not implemented yet" << endl;
-      return 0; // dummy return value
+   p_queue::size_type p_queue::size() const{
+      return used;
    }
 
    bool p_queue::empty() const{
       return used == 0;
    }
 
-   p_queue::value_type p_queue::front() const
-   {
-      cerr << "front() not implemented yet" << endl;
-      return value_type(); // dummy return value
+   p_queue::value_type p_queue::front() const{
+      assert(size() > 0);
+      return heap[0].data;
    }
 
    // PRIVATE HELPER FUNCTIONS

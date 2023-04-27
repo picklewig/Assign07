@@ -90,13 +90,13 @@ namespace CS3358_SP2023_A7
       p_queue(const p_queue& src);//
       ~p_queue();//
       // MODIFICATION MEMBER FUNCTIONS
-      p_queue& operator=(const p_queue& rhs);
-      void push(const value_type& entry, size_type priority);
-      void pop();
+      p_queue& operator=(const p_queue& rhs);//
+      void push(const value_type& entry, size_type priority);//
+      void pop();//
       // CONSTANT MEMBER FUNCTIONS
-      size_type size() const;
-      bool empty() const;
-      value_type front() const;
+      size_type size() const;//
+      bool empty() const;//
+      value_type front() const;//
       // EXTRA CONSTANT MEMBER FUNCTION FOR DEBUG PRINTING
       void print_tree(const char message[] = "", size_type i = 0) const;
       void print_array(const char message[] = "") const;
