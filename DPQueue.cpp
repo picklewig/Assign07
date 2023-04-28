@@ -146,12 +146,15 @@ namespace CS3358_SP2023_A7
    void p_queue::pop(){
       assert(size() > 0);
       size_type i = 0;
-      while(!is_leaf(i)){
-          swap_with_parent(big_child_index(i));
+      while(!is_leaf(i) and big_child_index(i) < used){
           i = big_child_index(i);
+          cout << "biggest child is " << heap[i].priority << " at index " << i << endl;
+          swap_with_parent(i);
       }
-      for(size_type index = i+1; index < used; index++){
-          heap[index-1] = heap[index];
+      if(i != used-1) {
+          for (size_type index = i + 1; index < used; index++) {
+              heap[index - 1] = heap[index];
+          }
       }
       used--;
    }
@@ -200,9 +203,9 @@ namespace CS3358_SP2023_A7
    //       returned, otherwise false has been returned.
    bool p_queue::is_leaf(size_type i) const{
       assert(i < used);
-      bool leaf = false;
+      bool leaf = true;
       if(((2*i) + 1) < used){
-          leaf = true;
+          leaf = false;
       }
       return leaf;
    }
@@ -234,11 +237,22 @@ namespace CS3358_SP2023_A7
       assert(!is_leaf(i));
       size_type bigChild;
       if(heap[(2*i)+1].priority >= heap[(2*i)+2].priority){
-          bigChild = (2*i)+1;
+          if((2*i)+1 < used) {
+              bigChild = (2 * i) + 1;
+          }
+          else{
+              bigChild = (2 * i) + 2;
+          }
       }
       else{
-          bigChild = (2*i)+2;
+          if((2*i)+2 < used) {
+              bigChild = (2 * i) + 2;
+          }
+          else{
+              bigChild = (2 * i) + 1;
+          }
       }
+      //cout << "left child was " << heap[(2*i)+1].priority << " and right child was " << heap[(2*i)+2].priority << endl;
       return bigChild;
    }
 
@@ -263,7 +277,9 @@ namespace CS3358_SP2023_A7
    // Pre:  (i > 0) && (i < used)
    // Post: The item at heap[i] has been swapped with its parent.
    void p_queue::swap_with_parent(size_type i){
-      assert((i > 0) and (i < used));
+      //assert((i > 0) and (i < used));
+      assert(i > 0);
+      assert(i < used);
       ItemType parent = heap[parent_index(i)];
       heap[parent_index(i)] = heap[i];
       heap[i] = parent;
