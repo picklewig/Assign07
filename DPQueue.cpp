@@ -132,7 +132,7 @@ namespace CS3358_SP2023_A7
        heap[used].priority = priority;
        size_type cursor = used;
        used++;
-       while((cursor > 0) and (priority > parent_priority(cursor))){ //used gets mutated
+       while((cursor > 0) and (priority > parent_priority(cursor) and (priority > parent_priority(parent_index(cursor))))){
            swap_with_parent(cursor);
            cursor = parent_index(cursor);
        }
