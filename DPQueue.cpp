@@ -134,7 +134,8 @@ namespace CS3358_SP2023_A7
        used++;
        while((cursor > 0) and (priority > parent_priority(cursor))){
            swap_with_parent(cursor);
-           cursor = parent_index(cursor);
+           //cursor = parent_index(cursor);
+           cursor = (cursor-1)/2;
        }
    }
 
@@ -277,13 +278,9 @@ namespace CS3358_SP2023_A7
    // Post: The item at heap[i] has been swapped with its parent.
    void p_queue::swap_with_parent(size_type i){
       assert((i > 0) and (i < used));
-      //ItemType parent = heap[parent_index(i)];
-      value_type parentData = heap[parent_index(i)].data;
-      size_type parentPriotity = heap[parent_index(i)].priority;
+      ItemType parent = heap[parent_index(i)];
       heap[parent_index(i)] = heap[i];
-      //heap[i] = parent;
-      heap[i].data = parentData;
-      heap[i].priority = parentPriotity;
+      heap[i] = parent;
    }
 }
 
