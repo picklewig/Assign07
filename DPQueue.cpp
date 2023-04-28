@@ -148,7 +148,6 @@ namespace CS3358_SP2023_A7
       size_type i = 0;
       while(!is_leaf(i) and big_child_index(i) < used){
           i = big_child_index(i);
-          cout << "biggest child is " << heap[i].priority << " at index " << i << endl;
           swap_with_parent(i);
       }
       if(i != used-1) {
@@ -252,7 +251,6 @@ namespace CS3358_SP2023_A7
               bigChild = (2 * i) + 1;
           }
       }
-      //cout << "left child was " << heap[(2*i)+1].priority << " and right child was " << heap[(2*i)+2].priority << endl;
       return bigChild;
    }
 
@@ -277,9 +275,7 @@ namespace CS3358_SP2023_A7
    // Pre:  (i > 0) && (i < used)
    // Post: The item at heap[i] has been swapped with its parent.
    void p_queue::swap_with_parent(size_type i){
-      //assert((i > 0) and (i < used));
-      assert(i > 0);
-      assert(i < used);
+      assert((i > 0) and (i < used));
       ItemType parent = heap[parent_index(i)];
       heap[parent_index(i)] = heap[i];
       heap[i] = parent;
