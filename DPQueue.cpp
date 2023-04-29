@@ -134,8 +134,7 @@ namespace CS3358_SP2023_A7
        used++;
        while((cursor > 0) and (priority > parent_priority(cursor))){
            swap_with_parent(cursor);
-           //cursor = parent_index(cursor);
-           cursor = (cursor-1)/2;
+           cursor = parent_index(cursor);
        }
    }
 
@@ -145,18 +144,18 @@ namespace CS3358_SP2023_A7
    //           p_queue. (If several items have the equal priority,
    //           then the implementation may decide which one to remove.)
    void p_queue::pop(){
-      assert(size() > 0);
-      size_type i = 0;
-      while(!is_leaf(i) and big_child_index(i) < used){
-          i = big_child_index(i);
-          swap_with_parent(i);
-      }
-      if(i != used-1) {//fills potential holes by shifting remaining branches downward
-          for (size_type index = i + 1; index < used; index++) {
-              heap[index - 1] = heap[index];
-          }
-      }
-      used--;
+       assert(size() > 0);
+       size_type i = 0;
+       while(!is_leaf(i) and big_child_index(i) < used){
+           i = big_child_index(i);
+           swap_with_parent(i);
+       }
+       if(i != used-1) {//fills potential holes by shifting remaining branches downward
+           for (size_type index = i + 1; index < used; index++) {
+               heap[index - 1] = heap[index];
+           }
+       }
+       used--;
    }
 
    // CONSTANT MEMBER FUNCTIONS
