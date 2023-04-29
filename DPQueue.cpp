@@ -145,17 +145,23 @@ namespace CS3358_SP2023_A7
    //           then the implementation may decide which one to remove.)
    void p_queue::pop(){
        assert(size() > 0);
-       size_type i = 0;
-       while(!is_leaf(i) and big_child_index(i) < used){
-           i = big_child_index(i);
-           swap_with_parent(i);
-       }
-       if(i != used-1) {//fills potential holes by shifting remaining branches downward
-           for (size_type index = i + 1; index < used; index++) {
-               heap[index - 1] = heap[index];
+       if(used > 1){
+           heap[0] = heap[used-1];
+           used--;
+           size_type cursor = 0;
+           while(!is_leaf(cursor)){
+               if(heap[cursor].priority < big_child_priority(cursor)){
+                   cursor = big_child_index(cursor);
+                   swap_with_parent(cursor);
+               }
+               else{
+                   break;
+               }
            }
        }
-       used--;
+       else{
+           used--;
+       }
    }
 
    // CONSTANT MEMBER FUNCTIONS
